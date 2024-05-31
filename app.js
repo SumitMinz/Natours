@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const compression = require('compression');
 
 const AppError = require('./utilities/appError');
 const tourRouter = require('./routes/tourRoutes');
@@ -58,7 +59,7 @@ app.use(
         // 'ws://localhost:50424/',
         // 'ws://localhost:50016/',
         // 'ws://localhost:62287/',
-        'http://localhost:3000/api/v1/booking/checkout-session/',
+        // 'http://localhost:3000/api/v1/booking/checkout-session/',
       ],
       scriptSrc: [
         "'self'",
@@ -110,12 +111,13 @@ app.use(
 );
 // for serving static file
 // app.use(express.static(`${__dirname}/public`));
+app.use(compression());
 
 //TEST MIDDLEWARE
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
-  console.log('HELLO FROM MIDDLEWARE');
-  console.log(req.cookies);
+  // console.log('HELLO FROM MIDDLEWARE');
+  // console.log(req.cookies);
   next();
 });
 
